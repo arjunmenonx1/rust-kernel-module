@@ -2,7 +2,7 @@
 
 This is a basic template for an out-of-tree Linux kernel module written in Rust.
 
-This repo is a culmination of code from the following repo (additional documentation listed at the end):
+This repo is a culmination of code from the following repos (additional documentation listed at the end):
 
 1. https://github.com/Rust-for-Linux/rust-out-of-tree-module
 2. https://github.com/wedsonaf/linux
