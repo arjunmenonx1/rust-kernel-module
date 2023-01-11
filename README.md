@@ -12,7 +12,8 @@ Please note that:
 
   - All Rust symbols are `EXPORT_SYMBOL_GPL`.
 
-  - The path ".../linux-with-rust-support" is an example and needs to be replaced with the actual path to the Linux kernel source code
+  - The path ".../linux-with-rust-support" is an example and needs to be replaced with the actual path to the Linux kernel source code, which can be cloned from https://github.com/Rust-for-Linux/linux (the kernel will need to be built before the kernel module can be built)
+
 
 Example:
 
