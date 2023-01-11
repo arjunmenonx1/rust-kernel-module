@@ -4,18 +4,18 @@ use kernel::prelude::*;
 use kernel::file::{flags, File, Operations};
 use kernel::io_buffer::{IoBufferReader, IoBufferWriter};
 use kernel::sync::smutex::Mutex;
-use kernel::sync::{Ref, RefBorrow};
+use kernel::sync::{Arc, ArcBorrow};
 use kernel::{miscdev, Module};
 
 module! {
     type: VDev,
-    name: b"vdev",
-    license: b"GPL",
+    name: "vdev",
+    license: "GPL",
     params: {
         devices: u32 {
             default: 1,
             permissions: 0o644,
-            description: b"Number of virtual devices",
+            description: "Number of virtual devices",
         },
     },
 }
@@ -30,10 +30,10 @@ struct VDev {
 
 #[vtable]
 impl Operations for VDev {
-    type OpenData = Ref<Device>;
-    type Data = Ref<Device>;
+    type OpenData = Arc<Device>;
+    type Data = Arc<Device>;
 
-    fn open(context: &Ref<Device>, file: &File) -> Result<Ref<Device>> {
+    fn open(context: &Arc<Device>, file: &File) -> Result<Arc<Device>> {
         pr_info!("File for device {} was opened\n", context.number);
         if file.flags() & flags::O_ACCMODE == flags::O_WRONLY {
             context.contents.lock().clear();
@@ -42,7 +42,7 @@ impl Operations for VDev {
     }
 
     fn read(
-        data: RefBorrow<'_, Device>,
+        data: ArcBorrow<'_, Device>,
         _file: &File,
         writer: &mut impl IoBufferWriter,
         offset: u64,
@@ -56,7 +56,7 @@ impl Operations for VDev {
     }
 
     fn write(
-        data: RefBorrow<'_, Device>,
+        data: ArcBorrow<'_, Device>,
         _file: &File,
         reader: &mut impl IoBufferReader,
         offset: u64,
@@ -86,7 +86,7 @@ impl Module for VDev {
         pr_info!("-----------------------\n");
         let mut devs = Vec::try_with_capacity(count)?;
         for i in 0..count {
-            let dev = Ref::try_new(Device {
+            let dev = Arc::try_new(Device {
                 number: i,
                 contents: Mutex::new(Vec::new()),
             })?;
