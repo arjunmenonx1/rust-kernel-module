@@ -2,6 +2,12 @@
 
 This is a basic template for an out-of-tree Linux kernel module written in Rust.
 
+This repo is a culmination of code from the following repo (additional documentation listed at the end):
+
+1. https://github.com/Rust-for-Linux/rust-out-of-tree-module
+2. https://github.com/wedsonaf/linux
+3. https://github.com/jackos/linux
+
 Please note that:
 
   - The Rust support is experimental.
@@ -36,3 +42,7 @@ sudo insmod .../rust-out-of-tree-module/rust_out_of_tree.ko
 For details about the Rust support, see https://github.com/Rust-for-Linux/linux.
 
 For details about out-of-tree modules, see https://www.kernel.org/doc/html/latest/kbuild/modules.html.
+
+For additional reading, please go through these excellent sources: 
+1. https://www.linuxfoundation.org/webinars/setting-up-an-environment-for-writing-linux-kernel-modules-in-rust?hsLang=en
+2. https://www.jackos.io/rust-kernel/rust-for-linux.html
